@@ -1,0 +1,36 @@
+name: .NET Core Deploy to IIS
+
+on: 
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build-and-deploy:
+
+    runs-on: self-hosted
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.302
+    
+    # dotnet build and publish
+    - name: Build with dotnet
+      run: dotnet build --configuration Release .\Labs.GithubAction
+
+    - name: dotnet publish 
+      run: |
+        dotnet publish -c Release -o dotnetcorewebapp .\Labs.GithubAction
+
+    - name: Deploy to IIS
+      run: |
+        iisreset /stop
+        Copy-Item ./dotnetcorewebapp/* C:/inetpub/wwwroot/Labs.GithubAction -Recurse -Force
+        iisreset /start
+    
+    - name: Curl the website as a smoke test
+      run: curl http://localhost/dotnetcore-webapp
