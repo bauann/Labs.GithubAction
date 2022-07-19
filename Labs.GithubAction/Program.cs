@@ -26,8 +26,9 @@ var app = builder.Build();
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//For test purpose, open swagger in all environment
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
@@ -38,9 +39,9 @@ if (app.Environment.IsDevelopment())
                 description.GroupName.ToUpperInvariant());
         }
     });
-}
+//}
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
