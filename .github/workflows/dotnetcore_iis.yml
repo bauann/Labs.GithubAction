@@ -20,17 +20,17 @@ jobs:
     
     # dotnet build and publish
     - name: Build with dotnet
-      run: dotnet build --configuration Release .\Labs.GithubAction
+      run: dotnet build --configuration Debug .\Labs.GithubAction
 
     - name: dotnet publish 
       run: |
-        dotnet publish -c Release -o dotnetcorewebapp .\Labs.GithubAction
+        dotnet publish -c Debug -o app_publish .\Labs.GithubAction
 
     - name: Deploy to IIS
       run: |
         iisreset /stop
-        Copy-Item ./dotnetcorewebapp/* C:/inetpub/wwwroot/Labs.GithubAction -Recurse -Force
+        Copy-Item ./app_publish/* C:/WebSites/GithubActions -Recurse -Force
         iisreset /start
     
     - name: Curl the website as a smoke test
-      run: curl http://localhost/dotnetcore-webapp
+      run: curl http://localhost/ActionsDemo
