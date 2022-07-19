@@ -33,4 +33,4 @@ jobs:
         iisreset /start
     
     - name: Curl the website as a smoke test
-      run: curl http://localhost/ActionsDemo
+      run: curl http://localhost/ActionsDemo/WeatherForecast?api-version=1.0
