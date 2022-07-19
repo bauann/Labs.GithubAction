@@ -24,10 +24,8 @@ jobs:
     # dotnet build and publish
     - name: Build with dotnet
       run: dotnet build -c Debug
-      shell: cmd
 
     - name: dotnet publish
-      shell: cmd
       run: |
         dotnet publish -c Debug -o app_publish
 
