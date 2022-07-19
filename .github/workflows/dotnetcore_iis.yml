@@ -20,11 +20,11 @@ jobs:
     
     # dotnet build and publish
     - name: Build with dotnet
-      run: dotnet build --configuration Debug .\Labs.GithubAction
+      run: dotnet build --configuration Debug .\Labs.GithubAction\Labs.GithubAction
 
     - name: dotnet publish 
       run: |
-        dotnet publish -c Debug -o app_publish .\Labs.GithubAction
+        dotnet publish -c Debug -o app_publish .\Labs.GithubAction\Labs.GithubAction
 
     - name: Deploy to IIS
       run: |
