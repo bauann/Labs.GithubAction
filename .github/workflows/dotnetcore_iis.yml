@@ -16,16 +16,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.0
+    # - name: Setup .NET Core
+    #   uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 6.0.0
     
     # dotnet build and publish
     - name: Build with dotnet
       run: dotnet build -c Debug
+      shell: cmd
 
-    - name: dotnet publish 
+    - name: dotnet publish
+      shell: cmd
       run: |
         dotnet publish -c Debug -o app_publish
 
