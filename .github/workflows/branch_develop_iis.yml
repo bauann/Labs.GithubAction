@@ -1,0 +1,39 @@
+name: Dev debug deploy
+
+on: 
+  push:
+    branches:
+      - "develop"
+    # ignore all markdown document changes
+    paths-ignore:
+      - "**.md"
+
+jobs:
+  build-and-deploy:
+
+    runs-on: self-hosted
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    # - name: Setup .NET Core
+    #   uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 6.0.0
+    
+    # dotnet build and publish
+    - name: Build with dotnet
+      run: dotnet build -c Debug
+
+    - name: dotnet publish
+      run: |
+        dotnet publish -c Debug -o app_publish
+
+    - name: Deploy to IIS
+      run: |
+        iisreset /stop
+        Copy-Item ./app_publish/* C:/WebSites/GithubActions -Recurse -Force
+        iisreset /start
+    
+    - name: Curl the website as a smoke test
+      run: curl http://localhost/ActionsDemo/WeatherForecast?api-version=1.0
