@@ -24,6 +24,9 @@ jobs:
     # dotnet build and publish
     - name: Build with dotnet
       run: dotnet build -c Debug
+      
+    - name: Run unit tests
+      run: dotnet test
 
     - name: dotnet publish
       run: |
