@@ -29,9 +29,9 @@ do {
 while (!$success -and $currentRetry -le 4)
 
 if ($success) {
-    write-host "stop pool filed"
     exit 0
 }
 else {
+    write-host "stop pool filed"
     exit 1
 }
