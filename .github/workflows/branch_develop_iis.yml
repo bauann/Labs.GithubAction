@@ -32,8 +32,17 @@ jobs:
       run: |
         dotnet publish -c Debug -o app_publish
 
+    - name: Stop AppPool
+      run: |
+        ./build/stoppool.ps1 ActionsDemo
+
     - name: Run Deploy script
-      run: .build/deploy.ps1
+      run: |
+        Get-ChildItem ./app_publish/ -Exclude "appsettings.json" | Copy-Item -Destination C:/WebSites/GithubActions -Recurse -Force
+
+    - name: Start AppPool
+      run: |
+        ./build/startpool.ps1 ActionsDemo
     
     - name: Curl the website as a smoke test
       run: curl http://localhost/ActionsDemo/WeatherForecast?api-version=1.0
