@@ -34,7 +34,7 @@ jobs:
 
     - name: Stop AppPool
       run: |
-        ./build/stoppool.ps1 ActionsDemo
+        .build/stoppool.ps1 ActionsDemo
 
     - name: Run Deploy script
       run: |
@@ -42,7 +42,7 @@ jobs:
 
     - name: Start AppPool
       run: |
-        ./build/startpool.ps1 ActionsDemo
+        .build/startpool.ps1 ActionsDemo
     
     - name: Curl the website as a smoke test
       run: curl http://localhost/ActionsDemo/WeatherForecast?api-version=1.0
